@@ -1,3 +1,65 @@
-<mat-toolbar color="primary">
-    <button mat-button>Home</button>
+<!--  admin-template.component.html -->
+<mat-toolbar class="toolbar">
+    <button mat-icon-button (click)="myDrawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span style="flex: auto"></span>
+    <button mat-button routerLink="/home">
+        <mat-icon>home</mat-icon>
+        
+        Home
+    </button>
+    <button mat-button routerLink="/profile">
+        <mat-icon>account_box</mat-icon>
+        Profile
+    </button>
+    
+    <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+        Import
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-button routerLink="/load-students">
+            <mat-icon>cloud_download</mat-icon>
+            Load students
+        </button>    
+        <button mat-button routerLink="/load-payments">
+            <mat-icon>cloud_download</mat-icon>
+            Load payments
+        </button>    
+    </mat-menu>
+
+    <button mat-raised-button color="accent" routerLink="/logout">
+        <mat-icon>exit_to_app</mat-icon>
+
+        Logout</button>
 </mat-toolbar>
+<mat-drawer-container>
+    <mat-drawer #myDrawer opened="true" mode="side" position="start">
+        <mat-list>
+            <mat-list-item>
+                <button mat-button routerLink="/dashboard">
+                    <mat-icon>dashboard</mat-icon>
+                    Dashboard
+                </button>
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button routerLink="/students">
+                    <mat-icon>people</mat-icon>
+                    Students
+                </button>
+            </mat-list-item>
+            <mat-list-item>
+                <button mat-button routerLink="/payments">
+                    <mat-icon>payment</mat-icon>
+                    Payments
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div style="min-height: 600px">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

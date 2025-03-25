@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="login-form">
+        <app-heading-card className="login-form" [formGroup]="loginForm">
+            <div card-title>
+                <button mat-button>
+                    <mat-icon>login</mat-icon>
+                    Authtentication
+                </button>
+            </div>
+            <div card-subtitle></div>
+            <div card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>
+                        Username or Email
+                    </mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>
+                        Password
+                    </mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+            </div>
+            <div card-actions >
+
+                <button (click)="login()" mat-raised-button color="warn" >Valider</button>
+
+            </div>
+        </app-heading-card>
+    </div>
+</div>

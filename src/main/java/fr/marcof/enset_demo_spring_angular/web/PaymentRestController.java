@@ -11,16 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.print.attribute.standard.Media;
 import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.rmi.server.UID;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class PaymentRestController {
@@ -34,7 +27,7 @@ public class PaymentRestController {
         this.paymentService = paymentService;
     }
     @GetMapping("/payments")
-    public List<Payment> allpayments(){
+    public List<Payment> getPayments(){
         return paymentRepository.findAll();
     }
     @GetMapping("/students/{code}/payments")

@@ -15,7 +15,8 @@ import { AuthorizationGuard } from './guards/authorization.guard';
 const routes: Routes = [
   {path: "", component: LoginComponent},
   {path: "login", component: LoginComponent},
-  {path: "admin", component: AdminTemplateComponent, canActivate: [AuthGuard], 
+  {path: "admin", component: AdminTemplateComponent, 
+    // canActivate: [AuthGuard], 
     children: [
     {path: "home", component: HomeComponent},
     {path: "dashboard", component: DashboardComponent},

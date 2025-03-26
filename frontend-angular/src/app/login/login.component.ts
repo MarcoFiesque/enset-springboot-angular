@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     let username: string = this.loginForm.value.username;
     let password: string = this.loginForm.value.password;
     let canLogin: boolean = this.authService.login(username, password);
-    console.log(`${username} ${password} logged ? ${canLogin}`);
+
     if(canLogin){
       this.router.navigateByUrl('/admin');
     }

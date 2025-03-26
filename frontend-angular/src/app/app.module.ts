@@ -23,6 +23,9 @@ import { HeadingCardComponent } from './components/heading-card/heading-card.com
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthorizationGuard } from './guards/authorization.guard';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -52,9 +55,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatFormField,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

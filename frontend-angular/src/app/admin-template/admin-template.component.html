@@ -4,53 +4,56 @@
         <mat-icon>menu</mat-icon>
     </button>
     <span style="flex: auto"></span>
-    <button mat-button routerLink="/home">
+    <button mat-button routerLink="/admin/home">
         <mat-icon>home</mat-icon>
         
         Home
     </button>
-    <button mat-button routerLink="/profile">
+    <button mat-button routerLink="/admin/profile">
         <mat-icon>account_box</mat-icon>
         Profile
     </button>
-    
-    <button mat-button [matMenuTriggerFor]="menu">
-        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
-        Import
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-button routerLink="/load-students">
-            <mat-icon>cloud_download</mat-icon>
-            Load students
-        </button>    
-        <button mat-button routerLink="/load-payments">
-            <mat-icon>cloud_download</mat-icon>
-            Load payments
-        </button>    
-    </mat-menu>
+    @if (authService.roles.includes('ADMIN')) {
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+            Import
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-button routerLink="/admin/load-students">
+                <mat-icon>cloud_download</mat-icon>
+                Load students
+            </button>    
+            <button mat-button routerLink="/admin/load-payments">
+                <mat-icon>cloud_download</mat-icon>
+                Load payments
+            </button>    
+        </mat-menu>
+    }
+    @if (authService.username) {
 
-    <button mat-raised-button color="accent" routerLink="/logout">
+        <button mat-button>{{authService.username}}</button>
+    }
+    <button mat-raised-button color="accent" routerLink="/logout" (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
-
         Logout</button>
 </mat-toolbar>
 <mat-drawer-container>
     <mat-drawer #myDrawer opened="true" mode="side" position="start">
         <mat-list>
             <mat-list-item>
-                <button mat-button routerLink="/dashboard">
+                <button mat-button routerLink="/admin/dashboard">
                     <mat-icon>dashboard</mat-icon>
                     Dashboard
                 </button>
             </mat-list-item>
             <mat-list-item>
-                <button mat-button routerLink="/students">
+                <button mat-button routerLink="/admin/students">
                     <mat-icon>people</mat-icon>
                     Students
                 </button>
             </mat-list-item>
             <mat-list-item>
-                <button mat-button routerLink="/payments">
+                <button mat-button routerLink="/admin/payments">
                     <mat-icon>payment</mat-icon>
                     Payments
                 </button>

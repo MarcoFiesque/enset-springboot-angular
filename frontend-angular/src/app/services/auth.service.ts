@@ -10,7 +10,7 @@ export class AuthService{
     admin: {password:"1234", roles: ["STUDENT", "ADMIN"]},
     user1: {password:"1234", roles: ["STUDENT"]},
   }
-  public username: any;
+  public username?: string;
   public isAuthenticated: boolean = false;
   public roles: string[] = [];
 

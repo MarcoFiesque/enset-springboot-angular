@@ -1,0 +1,62 @@
+<div class="container">
+    <app-heading-card>
+        <div card-title>
+          <button mat-button>
+            <mat-icon>home</mat-icon>
+            New payment
+          </button>
+          
+        </div>
+        <div card-subtitle></div>
+        <div card-content class="payment-form" [formGroup]="paymentFormGroup">
+          
+            <mat-form-field appearance="outline">
+                <mat-label>Payment Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Amount</mat-label>
+                <input type="text" matInput formControlName="amount">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type" placeholder="Placeholder" >
+                    <mat-option *ngFor="let type of paymentTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Code</mat-label>
+                <input readonly type="text" matInput formControlName="studentCode">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>File</mat-label>
+                <button type="button" mat-icon-button matPrefix (click)="f_input.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                <input matInput readonly formControlName="fileName">
+                <mat-error *ngIf="paymentFormGroup.get('fileSource')?.hasError('required')">
+                    File is required
+                </mat-error>
+                <input type="file" hidden #f_input (change)="selectFile($event)" accept="application/pdf">
+            </mat-form-field>
+            <div class="miniature">
+                <embed *ngIf="pdfFileUrl" [src]="pdfFileUrl | pdf" type="application/pdf" width="200" height="150">
+            </div>
+        </div>
+        <div card-actions>
+
+            <button mat-raised-button (click)="savePayment()" [disabled]="isUploading">
+                <mat-icon *ngIf="isUploading">
+                  <mat-spinner diameter="18"></mat-spinner>
+                </mat-icon>
+                {{ isUploading ? 'Uploading...' : 'Save payment' }}
+              </button>
+        </div>
+    </app-heading-card>
+</div>

@@ -29,6 +29,13 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { StudentDetailsComponent } from './student-details/student-details.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NewPaymentComponent } from './new-payment/new-payment.component';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { PdfPipe } from './pdf.pipe';
 
 
 @NgModule({
@@ -43,7 +50,10 @@ import { MatSortModule } from '@angular/material/sort';
     StudentsComponent,
     PaymentsComponent,
     DashboardComponent,
-    HeadingCardComponent
+    HeadingCardComponent,
+    StudentDetailsComponent,
+    NewPaymentComponent,
+    PdfPipe
   ],
   imports: [
     BrowserModule,
@@ -61,7 +71,12 @@ import { MatSortModule } from '@angular/material/sort';
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelect,
+    MatOption
   ],
   providers: [
     provideHttpClient(),

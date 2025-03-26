@@ -31,23 +31,28 @@ public class PaymentRestController {
     public List<Payment> getPayments(){
         return paymentRepository.findAll();
     }
+
     @GetMapping("/students/{code}/payments")
     public List<Payment> paymentsByStudentCode(@PathVariable String code){
         return paymentRepository.findByStudentCode(code);
     }
+
     @GetMapping("/payments/byStatus")
     public List<Payment> paymentsByStatus(@RequestParam PaymentStatus paymentStatus){
         return paymentRepository.findByStatus(paymentStatus);
     }
+
     @GetMapping("/payments/byType")
     public List<Payment> paymentsByType(@RequestParam PaymentType paymentType){
         return paymentRepository.findByType(paymentType);
     }
+
     @GetMapping("/payment/{id}")
     public Payment getPaymentById(@PathVariable Long id){
         return paymentRepository.findById(id)
                 .orElseThrow();
     }
+    
     @GetMapping("/students")
     public List<Student> allStudents(){
         return studentRepository.findAll();

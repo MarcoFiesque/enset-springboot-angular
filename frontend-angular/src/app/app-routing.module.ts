@@ -11,6 +11,8 @@ import { LoadPaymentsComponent } from './load-payments/load-payments.component';
 import { AdminTemplateComponent } from './admin-template/admin-template.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthorizationGuard } from './guards/authorization.guard';
+import { StudentDetailsComponent } from './student-details/student-details.component';
+import { NewPaymentComponent } from './new-payment/new-payment.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
@@ -21,11 +23,18 @@ const routes: Routes = [
     {path: "home", component: HomeComponent},
     {path: "dashboard", component: DashboardComponent},
     {path: "students", component: StudentsComponent},
+    {path: "student-details/:code", component: StudentDetailsComponent},
+    {path: "new-payment/:code", component: NewPaymentComponent},
     {path: "load-students", 
       canActivate:[AuthorizationGuard], 
       data: {roles:['ADMIN']},
-      component: LoadStudentsComponent},
-    {path: "load-payments", component: LoadPaymentsComponent},
+      component: LoadStudentsComponent
+    },
+    {path: "load-payments", 
+      canActivate:[AuthorizationGuard], 
+      data: {roles:['ADMIN']},
+      component: LoadPaymentsComponent
+    },
     {path: "payments", component: PaymentsComponent},
     {path: "profile", component: ProfileComponent},
   ]},

@@ -32,17 +32,21 @@
                 </tbody>
             </table> -->
           
-            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
 
-                <ng-container matColumnDef="id">
+                <!-- <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef  mat-sort-header> ID </th>
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
+                </ng-container> -->
                 
 
                 <ng-container matColumnDef="firstName">
                     <th mat-header-cell *matHeaderCellDef  mat-sort-header> Prénom </th>
-                    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                    <td mat-cell *matCellDef="let element"> 
+                        <a routerLink="/admin/student-details/{{element.code}}">
+                            {{element.firstName}}
+                        </a>
+                    </td>
                 </ng-container>
 
                 <!-- <ng-container matColumnDef="photo">
@@ -58,7 +62,7 @@
                 <ng-container matColumnDef="payments">
                     <th mat-header-cell *matHeaderCellDef  mat-sort-header> Payments </th>
                     <td mat-cell *matCellDef="let element"> 
-                        <button (click)="studentPayments(element)" mat-button>Payments</button> 
+                        <button (click)="studentPayments(element)" mat-button>{{element.firstName}}'s Payments</button> 
                     </td>
                 </ng-container>
                 

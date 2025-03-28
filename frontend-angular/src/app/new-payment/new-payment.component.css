@@ -3,12 +3,35 @@ mat-form-field{
 }
 
 .payment-form{
-    width: 500px;
-    margin: auto;
+    width: 100%;
+
     margin-top: 30px;
+    display: flex;
+}
+ mat-card{
+    flex-grow: 1;
+}
+.form{
+    min-width: 500px;
+    max-width: 800px;
+    width: 40%;
+    padding: 0 20px;
+}
+.viewer-card{
+    width: 100%;
+    padding: 0 10px;
+    background: rebeccapurple;
+}
+.pdf-viewer{
+
+    height: 40vh;
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
-.miniature{
+/* .miniature{
     width: 200px;
     height: auto;
     
@@ -18,4 +41,4 @@ mat-form-field{
     width: 80%;
     height: auto;
     object-fit: contain;
-}
+} */

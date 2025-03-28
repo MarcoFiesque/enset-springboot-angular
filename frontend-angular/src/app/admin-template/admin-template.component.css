@@ -9,10 +9,19 @@ mat-toolbar *{
     background-color: #E71A59;
     color: white;
 }
+.mat-drawer-container{
+    height: 100%;
+}
 .mat-drawer{
     width: auto;
     max-width: 250px;
 }
 mat-drawer-content{
     background: #f3f3f3;
+}
+
+.admin-template{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }

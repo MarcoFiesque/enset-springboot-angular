@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Payment } from 'app/model/students.model';
 import { StudentsService } from 'app/services/students.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-payments',
@@ -14,9 +15,11 @@ import { StudentsService } from 'app/services/students.service';
 })
 export class PaymentsComponent implements OnInit {
   private payments!: Payment[];
+  private destroy$ = new Subject<void>();
+
   public datasource!: MatTableDataSource<Payment, MatPaginator>;
   public displayedColumns = [
-    'id', 'firstName', 'amount', 'date', 'type', 'status'
+    'id', 'amount', 'date', 'type', 'status', 'firstName'
   ];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -25,6 +28,7 @@ export class PaymentsComponent implements OnInit {
   constructor(private studentService: StudentsService){}
   ngOnInit(): void {
       this.studentService.getAllPayments()
+      .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: data => {
           this.payments = data ;
@@ -36,5 +40,11 @@ export class PaymentsComponent implements OnInit {
           console.error(err);
         }
       })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    
   }
 }

@@ -1,0 +1,32 @@
+<div class="container">
+    <!-- {{payment|json}} -->
+    <app-heading-card>
+        <div card-title>
+            <button mat-button>
+                <mat-icon>payment</mat-icon>
+                Payment details
+            </button>
+            <button mat-button>
+                <mat-icon>arrow_back</mat-icon> BACK
+            </button>
+        </div>
+        <div card-subtitle></div>
+        <div card-content>
+            <pdf-viewer
+                        [src]="pdfFileUrl"
+                        [original-size]="true"
+                        [render-text]="true"
+                        [rotation]="0"
+                        [show-all]="true"
+                        [fit-to-page]="true"
+                        [zoom]="1"
+                        [zoom-scale]="'page-width'"
+                        [external-link-target]="'blank'"
+                        [autoresize]="true"
+                        [show-borders]="false"
+                        class="pdf-viewer"
+                        (after-load-complete)="afterLoadComplete($event)"
+                    ></pdf-viewer>
+        </div>
+    </app-heading-card>
+</div>

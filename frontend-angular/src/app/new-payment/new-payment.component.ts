@@ -1,7 +1,10 @@
+import { formatDate } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentType } from 'app/model/students.model';
+import { StudentsService } from 'app/services/students.service';
+import { PDFDocumentProxy } from 'ng2-pdf-viewer';
 
 @Component({
   selector: 'app-new-payment',
@@ -11,8 +14,10 @@ import { PaymentType } from 'app/model/students.model';
 })
 export class NewPaymentComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private studentService = inject(StudentsService);
   private fb = inject(FormBuilder);
-  
+
   public paymentFormGroup!: FormGroup;
   public paymentTypes: string[] = [];
   public studentCode!: String;
@@ -20,8 +25,6 @@ export class NewPaymentComponent implements OnInit{
   public isUploading: boolean = false;
 
   ngOnInit(): void {
-    console.log(Object.values(PaymentType));
-    
     for(let value of Object.values(PaymentType)){
       if (typeof value === 'string') this.paymentTypes.push(value);
     }
@@ -55,14 +58,43 @@ export class NewPaymentComponent implements OnInit{
         fileName: file.name
       });
       this.pdfFileUrl = window.URL.createObjectURL(file);
-      console.log(this.pdfFileUrl);
       this.isUploading = false;
     }
   }
 
   public savePayment(){
+    this.isUploading = true;
+    let date = new Date(this.paymentFormGroup.value.date)
+    let formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+    // this.showProgess = true;
 
+    let formData = new FormData();
+    formData.set('file', this.paymentFormGroup.get('fileSource')!.value);
+    formData.set('date', formattedDate);
+    formData.set('amount', this.paymentFormGroup.value.amount);
+    formData.set('type', this.paymentFormGroup.value.type);
+    formData.set('studentCode', this.paymentFormGroup.value.studentCode);
+    
+    this.studentService.savePayments(formData).subscribe({
+      next: data => {
+        this.isUploading = false;
+        this.router.navigateByUrl(`/admin/student-details/${this.studentCode}`);
+      },
+      error: err => {
+        console.error(err);
+        this.isUploading = false;
+      }
+    });
+    // formData.append('file', this.paymentFormGroup.get('filesource')!.value);
+    // formData.append('amount', this.paymentFormGroup.value('amount'));
+    // formData.append('type', this.paymentFormGroup.value('type'));
+    // formData.append('date', this.paymentFormGroup.value('date'));
+    // formData.append('studentCode', this.paymentFormGroup.value('studentCode'));
+
+    // this.paymentService.
   }
+
+  afterLoadComplete(event: PDFDocumentProxy){console.log(event)}
 
   ngOnDestroy() {
     if (this.pdfFileUrl) {

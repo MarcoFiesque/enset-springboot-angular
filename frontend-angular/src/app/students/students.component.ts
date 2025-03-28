@@ -20,7 +20,7 @@ export class StudentsComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
 
   public displayedColumns = [
-    "id",
+    // "id",
     "firstName",
     "programId",
     // "photo",

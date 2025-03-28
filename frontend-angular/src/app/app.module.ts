@@ -36,6 +36,8 @@ import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker
 import { MatNativeDateModule, MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { PdfPipe } from './pdf.pipe';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import { PdfPipe } from './pdf.pipe';
     HeadingCardComponent,
     StudentDetailsComponent,
     NewPaymentComponent,
-    PdfPipe
+    PdfPipe,
+    PaymentDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,8 @@ import { PdfPipe } from './pdf.pipe';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelect,
-    MatOption
+    MatOption,
+    PdfViewerModule
   ],
   providers: [
     provideHttpClient(),

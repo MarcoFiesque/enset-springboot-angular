@@ -20,7 +20,7 @@
               {{ error }}
           </div>
 
-          <div *ngIf="!isLoading && !error">
+          <div [ngClass]="{'hidden-element': isLoading}">
               <table matSort mat-table [dataSource]="paymentsDataSource" class="mat-elevation-z1">
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -42,9 +42,18 @@
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                   <td mat-cell *matCellDef="let element"> {{element.status}} </td>
                 </ng-container>
-                <ng-container matColumnDef="file">
+                <!-- <ng-container matColumnDef="file">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> File </th>
                   <td mat-cell *matCellDef="let element"> {{element.file}} </td>
+                </ng-container> -->
+                <ng-container matColumnDef="details">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <button (click)="paymentDetails(element.id)" [disabled]="!element.file" mat-raised-button>
+                      <mat-icon>find_in_page</mat-icon>
+                      File
+                    </button> 
+                  </td>
                 </ng-container>
                   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

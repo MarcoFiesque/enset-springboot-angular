@@ -25,4 +25,17 @@ export class StudentsService {
   public getStudentPayments(studentId: string): Observable<Array<Payment>>{
     return this.http.get<Array<Payment>>(`${this.backendHostUrl}/students/${studentId}/payments`);
   }
+  
+  public getPayment(paymentId: number): Observable<Payment>{
+    return this.http.get<Payment>(`${this.backendHostUrl}/payment/${paymentId}`);
+  }
+
+  public getPaymentFile(paymentId: number): Observable<Blob>{
+    return this.http.get(`${this.backendHostUrl}/paymentFile/${paymentId}`, {responseType: 'blob'})
+  }
+
+  public savePayments(formData: FormData): Observable<Payment>{
+    return this.http.post<Payment>(`${this.backendHostUrl}/payments`, formData);
+  }
+
 }

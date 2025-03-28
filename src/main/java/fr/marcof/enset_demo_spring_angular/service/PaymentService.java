@@ -1,5 +1,6 @@
 package fr.marcof.enset_demo_spring_angular.service;
 
+import fr.marcof.enset_demo_spring_angular.dto.NewPaymentDTO;
 import fr.marcof.enset_demo_spring_angular.entities.Payment;
 import fr.marcof.enset_demo_spring_angular.entities.PaymentStatus;
 import fr.marcof.enset_demo_spring_angular.entities.PaymentType;
@@ -31,7 +32,7 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
-    public Payment savePayment(MultipartFile file, LocalDate date, double amount, PaymentType type, String studentCode)
+    public Payment savePayment(MultipartFile file, NewPaymentDTO newPaymentDTO)
             throws IOException {
         Path folderPath = Paths.get(System.getProperty("user.home"), "enset-data", "payments");
         if(!Files.exists(folderPath)){
@@ -40,9 +41,12 @@ public class PaymentService {
         String fileName = UUID.randomUUID().toString();
         Path filePath = Paths.get(System.getProperty("user.home"), "enset-data", "payments", fileName+".pdf");
         Files.copy(file.getInputStream(), filePath);
-        Student student = studentRepository.findByCode(studentCode);
+        Student student = studentRepository.findByCode(newPaymentDTO.getStudentCode());
         Payment payment = Payment.builder()
-                .date(date).type(type).student(student).amount(amount)
+                .date(newPaymentDTO.getDate())
+                .type(newPaymentDTO.getType())
+                .student(student)
+                .amount(newPaymentDTO.getAmount())
                 .file(filePath.toUri().toString()).status(PaymentStatus.CREATED)
                 .build();
         return paymentRepository.save(payment);
@@ -57,8 +61,10 @@ public class PaymentService {
 
     public byte[] getPaymentFile(Long paymentId) throws IOException {
         Payment payment = paymentRepository.findById(paymentId).orElseThrow();
-
-        String fileName = payment.getFile();
-        return Files.readAllBytes(Path.of(URI.create(payment.getFile())));
+        if(payment.getFile() != null){
+            return Files.readAllBytes(Path.of(URI.create(payment.getFile())));
+        } else {
+            return null;
+        }
     }
 }

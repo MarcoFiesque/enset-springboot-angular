@@ -6,3 +6,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .container{
     padding: 10px;
 }
+
+.hidden-element {
+    display: none;
+}
+
+mat-card mat-card-title button.mdc-button{
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}

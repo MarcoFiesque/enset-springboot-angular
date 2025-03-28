@@ -1,5 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Payment, Student } from 'app/model/students.model';
@@ -18,22 +19,27 @@ export class StudentDetailsComponent implements OnInit{
   private router = inject(Router);
   private destroy$ = new Subject<void>();
 
+
   public displayedColumns = [
-    "id",
+    // "id",
     // "student",
     "date",
     "amount",
     "type",
     "status",
-    "file"
+    // "file",
+    "details",
   ];
 
-  public paymentsDataSource = new MatTableDataSource<Payment>();
+  public paymentsDataSource!: MatTableDataSource<Payment, MatPaginator>;
   public studentPayments: Payment[] = [];
   public studentCode: string = '';
   public student: Student | null = null;
   public isLoading = true;
   public error: string | null = null;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.studentCode = this.activatedRoute.snapshot.params['code'];
@@ -57,8 +63,16 @@ export class StudentDetailsComponent implements OnInit{
             this.student = data[0].student;
           }
           this.studentPayments = data;
-          this.paymentsDataSource.data = data;
-          this.isLoading = false;
+          this.paymentsDataSource = new MatTableDataSource(this.studentPayments);
+
+          // this.paymentsDataSource.data = data;
+          this.isLoading = false
+
+
+
+          this.paymentsDataSource.paginator = this.paginator
+          this.paymentsDataSource.sort = this.sort
+          
         },
         error: (err) => {
           console.error(err);
@@ -68,7 +82,11 @@ export class StudentDetailsComponent implements OnInit{
       });
   }
 
-  public newPayment(){
+  public newPayment(): void{
     this.router.navigateByUrl(`/admin/new-payment/${this.studentCode}`);
+  }
+
+  public paymentDetails(id: number): void{
+    this.router.navigateByUrl(`/admin/payment-details/${id}`);
   }
 }

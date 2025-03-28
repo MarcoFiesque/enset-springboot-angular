@@ -22,9 +22,13 @@
 
                 <!-- Firstname Column -->
                 <ng-container matColumnDef="firstName">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Prénom </th>
-                  <td mat-cell *matCellDef="let element"> {{element.student.firstName}} </td>
-                </ng-container>``
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Utilisateur </th>
+                  <td mat-cell *matCellDef="let element"> 
+                    <a routerLink="/admin/student-details/{{element.student.code}}">
+                      {{element.student.firstName}} {{element.student.lastName}}
+                    </a> 
+                  </td>
+                </ng-container>
 
                 <!-- Lastname Column -->
                 <!-- <ng-container matColumnDef="lastName">
